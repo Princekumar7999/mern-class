@@ -3,23 +3,23 @@ import './App.css';
 import { a, b } from './components/Products/Products';
 
 import Products from './components/Products/Products';
+import CartContext from './context/CartContext';
 import { useState } from 'react';
 
 function App() {
   let [cart,setCart] = useState({});
   function increaseQuantity(product) {
     const newCart = { ...cart };
-    if(!newcart[Products.id])
+    if(!newCart[Products.id])
     {
       newCart[product.id]={
-        id : product.id,
-        title : ptoduct.title,
-        price : product.price,
+        ...product,
         quantity : 0
       };
     }
       newCart[product.id].quantity++;
-      setcart(newCart);
+      console.log(newCart);
+      setCart(newCart);
     }
     function decreaseQuantity(product) {
       const newCart = { ...cart };
@@ -32,13 +32,14 @@ function App() {
     }
     console.log(a,b);
   return (
+    <CartContext.Provider value={{cart,increaseQuantity,decreaseQuantity}}>
     <div className="App">
       
-      <Products />
+      <Products cart={cart} increaseQuantity={increaseQuantity} decreaseQuantity={decreaseQuantity} />
       
       
     </div>
-
+  </CartContext.Provider>
   );
 }
 
