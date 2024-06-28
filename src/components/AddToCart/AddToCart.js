@@ -1,22 +1,28 @@
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
-function AddToCart({ product}) {
-    console.log
-    const { cart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
-    function increase() {
-        increaseQuantity(product);
+
+function AddToCart({ product}){
+    console.log("AddToCart", product.id)
+    const {cart, increaseQuantity, decreaseQuantity} = useContext(CartContext);
+
+    function increase(){
+        increaseQuantity({product});
+    
     }
-    function decrease() {
-        decreaseQuantity(product);
+    function decrease(){
+        decreaseQuantity({product});
     }
+
     const quantity = cart[product.id] ? cart[product.id].quantity : 0;
     if (quantity === 0) {
         return (
             <div>
                 <button onClick={increase}>AddToCart</button>
+                
             </div>
      )  
-    } else {
+    }
+    else {
         return ( 
             <div>
                 <button onClick={decrease}>-</button>
@@ -26,11 +32,8 @@ function AddToCart({ product}) {
             </div>
         )
     }
-
 }
-
 export default AddToCart;
-
 
 // array of object 
 // object of object 
